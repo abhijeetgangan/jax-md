@@ -17,7 +17,7 @@
 from absl.testing import absltest
 from absl.testing import parameterized
 
-from jax.config import config as jax_config
+from jax import config as jax_config
 
 from jax import random
 import jax.numpy as np
