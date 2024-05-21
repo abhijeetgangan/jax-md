@@ -34,7 +34,7 @@ import numpy as onp
 
 from jax_md import tpu
 
-from jax.config import config as jax_config
+from jax import config as jax_config
 
 jax_config.parse_flags_with_absl()
 
