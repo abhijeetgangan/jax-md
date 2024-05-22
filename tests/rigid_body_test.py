@@ -28,7 +28,10 @@ from jax import random
 from jax import lax
 from jax import test_util as jtu
 
-from jax import config as jax_config
+
+from jax.config import config as jax_config
+jax_config.update('jax_disable_jit', True)
+
 import jax.numpy as jnp
 
 from jax_md import quantity
