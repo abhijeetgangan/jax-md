@@ -17,7 +17,7 @@
 from absl.testing import absltest
 from absl.testing import parameterized
 
-from jax.config import config
+from jax import config
 from jax import random
 import jax
 from jax import jit, vmap, grad
