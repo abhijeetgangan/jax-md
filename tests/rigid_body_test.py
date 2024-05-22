@@ -302,7 +302,7 @@ class RigidBodyTest(test_util.JAXMDTestCase):
       return (energy_fn(pos, neighbor=nbrs) +
               simulate.kinetic_energy(state))
 
-    nbrs = neighbor_fn.allocate(body)
+    nbrs = neighbor_fn.allocate(body, extra_capacity=2)
     state = init_fn(key, body, 1e-3, mass=shape.mass(), neighbor=nbrs)
     E_initial = total_energy(state, nbrs)
 
