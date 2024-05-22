@@ -792,7 +792,7 @@ class EnergyTest(test_util.JAXMDTestCase):
     with open('tests/data/Si.tersoff', 'r') as fh:
       tersoff_parameters = energy.load_lammps_tersoff_parameters(fh)
     if dtype == f32:
-      tersoff_parameters = tree_map(lambda x: f32(x) if isinstance(x, Array) else x, tersoff_parameters)
+      tersoff_parameters = tree_map(lambda x: f32(x), tersoff_parameters)
     energy_fn = energy.tersoff(displacement, tersoff_parameters)
     E = energy_fn(atoms)
     if dtype is f64:
@@ -828,7 +828,7 @@ class EnergyTest(test_util.JAXMDTestCase):
     with open('tests/data/Si.tersoff', 'r') as fh:
       tersoff_parameters = energy.load_lammps_tersoff_parameters(fh)
     if dtype == f32:
-      tersoff_parameters = tree_map(lambda x: f32(x) if isinstance(x, Array) else x, tersoff_parameters)
+      tersoff_parameters = tree_map(lambda x: f32(x), tersoff_parameters)
     neighbor_fn, energy_fn = energy.tersoff_neighbor_list(displacement,
                                                           box_size,
                                                           tersoff_parameters)
