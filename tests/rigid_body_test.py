@@ -29,7 +29,7 @@ from jax import lax
 from jax import test_util as jtu
 
 
-from jax.config import config as jax_config
+from jax import config as jax_config
 
 import jax.numpy as jnp
 
