@@ -837,7 +837,7 @@ def concatenate_shapes(*shapes) -> RigidPointUnion:
     raise ValueError('Either all shapes should have point species or none '
                      'should have point species.')
   if (any_point_species and
-      not all(isinstance(x, (Array, onp.ndarray)) for x in point_species)):
+      not all(isinstance(x, (jnp.ndarray, onp.ndarray)) for x in point_species)):
     raise ValueError('All point species should be specified as `onp.ndarray` '
                      'since the species must be known statically at compile '
                      'time.')
