@@ -28,7 +28,10 @@ from jax import random
 from jax import lax
 from jax import test_util as jtu
 
+
 from jax.config import config as jax_config
+jax_config.update('jax_disable_jit', True)
+
 import jax.numpy as jnp
 
 from jax_md import quantity
@@ -238,9 +241,9 @@ class RigidBodyTest(test_util.JAXMDTestCase):
                                                                    shape)
     init_fn, step_fn = simulate.nve(energy_fn, shift)
 
-    step_fn = jit(step_fn)
+    # step_fn = jit(step_fn)
 
-    @jit
+    # @jit
     def total_energy(state, nbrs):
       pos = state.position
       return (energy_fn(pos, neighbor=nbrs) +
@@ -249,6 +252,8 @@ class RigidBodyTest(test_util.JAXMDTestCase):
     nbrs = neighbor_fn.allocate(body)
     state = init_fn(key, body, 1e-3, mass=shape.mass(), neighbor=nbrs)
     E_initial = total_energy(state, nbrs)
+
+    # @jit
     def step(i, state_nbrs):
       state, nbrs = state_nbrs
       nbrs = nbrs.update(state.position)
@@ -290,9 +295,9 @@ class RigidBodyTest(test_util.JAXMDTestCase):
                                                                    shape)
     init_fn, step_fn = simulate.nve(energy_fn, shift)
 
-    step_fn = jit(step_fn)
+    # step_fn = jit(step_fn)
 
-    @jit
+    # @jit
     def total_energy(state, nbrs):
       pos = state.position
       return (energy_fn(pos, neighbor=nbrs) +
@@ -301,6 +306,8 @@ class RigidBodyTest(test_util.JAXMDTestCase):
     nbrs = neighbor_fn.allocate(body)
     state = init_fn(key, body, 1e-3, mass=shape.mass(), neighbor=nbrs)
     E_initial = total_energy(state, nbrs)
+
+    # @jit
     def step(i, state_nbrs):
       state, nbrs = state_nbrs
       nbrs = nbrs.update(state.position)
@@ -372,6 +379,8 @@ class RigidBodyTest(test_util.JAXMDTestCase):
                     mass=shape.mass(shape_species),
                     neighbor=nbrs)
     E_initial = total_energy(state, nbrs)
+
+    @jit
     def step(i, state_nbrs):
       state, nbrs = state_nbrs
       nbrs = nbrs.update(state.position)
@@ -854,6 +863,7 @@ class RigidBodyTest(test_util.JAXMDTestCase):
     state = init_fn(key, body, mass=shape.mass(), neighbor=nbrs)
     E_initial = simulate.nvt_nose_hoover_invariant(energy_fn, state, kT,
                                                    neighbor=nbrs)
+    @jit
     def sim_fn(i, state_nbrs):
       state, nbrs = state_nbrs
       state = step_fn(state, neighbor=nbrs)
@@ -911,6 +921,7 @@ class RigidBodyTest(test_util.JAXMDTestCase):
     state = init_fn(key, body, mass=shape.mass(), neighbor=nbrs)
     E_initial = simulate.nvt_nose_hoover_invariant(energy_fn, state, kT,
                                                    neighbor=nbrs)
+    @jit
     def sim_fn(i, state_nbrs):
       state, nbrs = state_nbrs
       state = step_fn(state, neighbor=nbrs)

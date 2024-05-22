@@ -25,7 +25,7 @@ import netCDF4 as nc
 
 import jax.numpy as jnp
 import numpy as onp
-from jax.config import config
+from jax import config
 
 import jax
 from jax import dtypes as _dtypes
