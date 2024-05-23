@@ -304,7 +304,7 @@ class RigidBodyTest(test_util.JAXMDTestCase):
 
     # NOTE: This test only passes after using extra capacity when generating the neighbours.
     # See the comment below for more details.
-    nbrs = neighbor_fn.allocate(body, extra_capacity=4)
+    nbrs = neighbor_fn.allocate(body, extra_capacity=2)
     state = init_fn(key, body, 1e-3, mass=shape.mass(), neighbor=nbrs)
     E_initial = total_energy(state, nbrs)
 
@@ -861,7 +861,7 @@ class RigidBodyTest(test_util.JAXMDTestCase):
     step_fn = jit(step_fn)
     # NOTE: This test only passes after using extra capacity when generating the neighbours.
     # See the comment in test_nve_2d_neighbor_list_multi_atom_species
-    nbrs = neighbor_fn.allocate(body, extra_capacity=4)
+    nbrs = neighbor_fn.allocate(body, extra_capacity=8)
     state = init_fn(key, body, mass=shape.mass(), neighbor=nbrs)
     E_initial = simulate.nvt_nose_hoover_invariant(energy_fn, state, kT,
                                                    neighbor=nbrs)
